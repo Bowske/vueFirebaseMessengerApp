@@ -32,7 +32,7 @@
         <font-awesome-icon class="iconChatFooter" icon="image" />
       </div>
       <form>
-        <input v-model="input" placeholder="Napisz cos" type="text" />
+        <input class="form__input" v-model="input" placeholder="Napisz cos" type="text" />
         <button @click.prevent="sendMessage()" type="submit" class="sendButton">
           <font-awesome-icon class="iconLastHeader" icon="paper-plane" />
         </button>
@@ -111,7 +111,7 @@ export default {
   align-items: center;
   margin-left: 20px;
 }
-form > input {
+form > .form__input {
   flex: 1;
   border-radius: 20px;
   display: flex;

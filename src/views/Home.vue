@@ -1,7 +1,12 @@
 <template>
   <div class="app__body">
-    <Sidebar />
-    <Chat />
+    <div v-if="user">
+      <Sidebar />
+      <Chat />
+    </div>
+    <div v-else>
+      <Login />
+    </div>
   </div>
 </template>
 
@@ -9,12 +14,19 @@
 // @ is an alias to /src
 import Sidebar from "@/components/Sidebar.vue";
 import Chat from "@/components/Chat.vue";
+import Login from "@/components/Login.vue";
 
 export default {
   name: "Home",
   components: {
+    Login,
     Sidebar,
     Chat,
+  },
+  data() {
+    return {
+      user: null,
+    };
   },
 };
 </script>
