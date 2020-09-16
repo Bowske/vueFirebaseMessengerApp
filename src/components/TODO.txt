@@ -1,0 +1,28 @@
+w sidebar chats przeniesienie zmiany kolor na clicku do vuexa
+
+WPAKOWAC DO JEDNEGO OBIEKTU ID I DANE POKOJU!!!
+
+
+firestore() {
+    return {
+      firebaseData: db.collection("rooms").onSnapshot(
+        (snapshot) =>
+          (this.firebaseData = snapshot.docs.map((doc) => ({
+            id: doc.id,
+            data: doc.data(),
+          })))
+      ),
+    };
+  },
+
+
+  wysylanie wiadomosci, ogarniecie routerlinkow czatu? router-view
+
+
+
+    watch: {
+    roomName: db
+      .collection("rooms")
+      .doc(this.$route.params.id)
+      .onSnapshot((snapshot) => (this.roomName = snapshot.data().name)),
+  },
