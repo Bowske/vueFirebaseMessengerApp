@@ -3,10 +3,10 @@
     <div class="chat__header">
       <div class="iconInfoWrapper">
         <div class="chat__headerIcon">
-          <font-awesome-icon class="fa-2x" icon="user-circle" />
+          <img class="roomIcon" :src="`${firebaseData.ikona}`" />
         </div>
         <div class="chat__headerInfo">
-          <span class="roomName">{{roomName}}</span>
+          <span class="roomName">{{firebaseData.name}}</span>
           <p class="lastOnline">Last online</p>
           <p>{{message}}</p>
         </div>
@@ -51,17 +51,18 @@ export default {
       roomName: "",
       message: "",
       roomNameTest: "",
+      firebaseData: null,
     };
   },
   methods: {
-    // sendMessage() {
-    //   console.log(this.input);
-    //   this.input = "";
-    // },
+    sendMessage() {
+      console.log(this.input);
+      this.input = "";
+    },
     getRoomName() {
       db.collection("rooms")
         .doc(this.$route.params.id)
-        .onSnapshot((snapshot) => (this.roomName = snapshot.data().name));
+        .onSnapshot((snapshot) => (this.firebaseData = snapshot.data()));
     },
   },
   watch: {
@@ -72,7 +73,7 @@ export default {
   created() {
     db.collection("rooms")
       .doc(this.$route.params.id)
-      .onSnapshot((snapshot) => (this.roomName = snapshot.data().name));
+      .onSnapshot((snapshot) => (this.firebaseData = snapshot.data()));
   },
 };
 </script>
