@@ -1,16 +1,28 @@
 .<template>
   <div id="login">
     <div class="login__container">
-      <img src="../../public/messengerLoginIcon.png" alt />
-      <h1 class="messenger__header">Messenger</h1>
+      <img class="messenger__img" src="../../public/messengerLoginIcon.png" alt />
+      <p class="messenger__header">Messenger</p>
       <div class="messenger__paragraphs">
         <p>Błyskawicznie kontaktuj się z ważnymi dla Ciebie osobami.</p>
         <p>Zaloguj się do serwisu Facebook, aby rozpocząć.</p>
       </div>
-      <form>
-        <input type="text" />
-        <input type="text" />
+      <form class="login__input">
+        <input type="text" placeholder="Adres e-mail lub numer telefonu" />
+        <input placeholder="Haslo" type="text" />
       </form>
+      <button class="messenger__buttons">Kontynuuj</button>
+      <div class="google__login">
+        <button class="messenger__buttons">
+          Zaloguj przez
+          <span style="color: #4285f4">G</span>
+          <span style="color: #ea4335">o</span>
+          <span style="color: #fbbc05">o</span>
+          <span style="color: #4285f4">g</span>
+          <span style="color: #34a853">l</span>
+          <span style="color: #ea4335">e</span>
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -31,7 +43,43 @@ export default {
   display: grid;
   place-items: center;
 }
+.messenger__paragraphs p {
+  margin: 0 0 24px;
+}
+.messenger__header {
+  font-size: 40px;
+  margin: 0 0 24px;
+}
+.messenger__img {
+  width: 65px;
+  height: 65px;
+}
+.login__input {
+  max-width: 65%;
+  display: flex;
+  /* flex: 1; */
+  flex-direction: column;
+  margin: auto;
+}
+.login__input input {
+  margin: 0 0 12px;
+  font-size: 16px;
+  height: 33px;
+  padding: 0 16px;
+}
 .login__container {
   text-align: center;
+}
+.messenger__buttons {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+  margin: 24px 0 0;
+  font-size: 19px;
+  color: #0084ff;
 }
 </style>
