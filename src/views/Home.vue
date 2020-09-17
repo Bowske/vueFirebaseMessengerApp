@@ -1,6 +1,6 @@
 <template>
   <div class="app__body">
-    <div v-if="user">
+    <div class="user__cond" v-if="this.$store.state.userData">
       <Sidebar />
       <Chat />
     </div>
@@ -31,6 +31,11 @@ export default {
 };
 </script>
 <style>
+.user__cond {
+  display: flex;
+  height: 90vh;
+  width: 90vw;
+}
 .app__body {
   display: flex;
   height: 90vh;

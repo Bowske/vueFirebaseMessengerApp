@@ -49,13 +49,12 @@ export default {
   },
   created() {
     return {
-      firebaseData: db.collection("rooms").onSnapshot(
-        (snapshot) =>
-          (this.firebaseData = snapshot.docs.map((doc) => ({
-            id: doc.id,
-            data: doc.data(),
-          })))
-      ),
+      firebaseData: db.collection("rooms").onSnapshot((snapshot) => {
+        this.firebaseData = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          data: doc.data(),
+        }));
+      }),
     };
   },
 };

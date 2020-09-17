@@ -13,7 +13,7 @@
       </form>
       <button class="messenger__buttons">Kontynuuj</button>
       <div class="google__login">
-        <button class="messenger__buttons">
+        <button @click="signIn" class="messenger__buttons">
           Zaloguj przez
           <span style="color: #4285f4">G</span>
           <span style="color: #ea4335">o</span>
@@ -23,15 +23,34 @@
           <span style="color: #ea4335">e</span>
         </button>
       </div>
+      <!-- <button @click="testData()">TESTESTESTSER</button> -->
     </div>
   </div>
 </template>
 
 <script>
+import { auth, provider } from "../firebase.js";
 export default {
   name: "Login",
   data() {
     return {};
+  },
+  methods: {
+    testData() {
+      console.log(this.$store.state.userData);
+    },
+    signIn() {
+      auth
+        .signInWithPopup(provider)
+        .then((result) =>
+          this.$store.commit("setUserData", {
+            email: result.additionalUserInfo.profile.email,
+            picture: result.additionalUserInfo.profile.picture,
+            name: result.additionalUserInfo.profile.name,
+          })
+        )
+        .catch((err) => console.log(err.message));
+    },
   },
 };
 </script>
@@ -57,7 +76,6 @@ export default {
 .login__input {
   max-width: 65%;
   display: flex;
-  /* flex: 1; */
   flex-direction: column;
   margin: auto;
 }
@@ -73,7 +91,7 @@ export default {
 .messenger__buttons {
   background: none;
   color: inherit;
-  border: none;
+  border: 1px solid #f5f5f5;
   padding: 0;
   font: inherit;
   cursor: pointer;

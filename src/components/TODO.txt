@@ -26,3 +26,8 @@ firestore() {
       .doc(this.$route.params.id)
       .onSnapshot((snapshot) => (this.roomName = snapshot.data().name)),
   },
+
+
+WRZUCANIE LOGINU DO VUEXA!!!!!!!!!!!!!
+
+login jako router view
