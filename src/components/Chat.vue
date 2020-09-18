@@ -3,10 +3,10 @@
     <div class="chat__header">
       <div class="iconInfoWrapper">
         <div class="chat__headerIcon">
-          <img class="roomIcon" :src="`${firebaseData.ikona}`" />
+          <img class="roomIcon" v-if="testData()" :src="`${firebaseData.ikona}`" />
         </div>
         <div class="chat__headerInfo">
-          <span class="roomName">{{firebaseData.name}}</span>
+          <span v-if="testData()" class="roomName">{{firebaseData.name}}</span>
           <p class="lastOnline">Last online</p>
           <p>{{message}}</p>
         </div>
@@ -22,6 +22,7 @@
         <p>Witam</p>
         <p>{{this.$route.params}}</p>
         <p></p>
+        <button @click="testData()">TEST</button>
       </div>
     </div>
     <div class="chat__footer">
@@ -55,6 +56,9 @@ export default {
     };
   },
   methods: {
+    testData() {
+      return this.firebaseData;
+    },
     sendMessage() {
       console.log(this.input);
       this.input = "";
@@ -70,7 +74,7 @@ export default {
       this.getRoomName();
     },
   },
-  created() {
+  beforeMount() {
     db.collection("rooms")
       .doc(this.$route.params.id)
       .onSnapshot((snapshot) => (this.firebaseData = snapshot.data()));

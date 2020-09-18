@@ -1,12 +1,7 @@
 <template>
   <div class="app__body">
-    <div class="user__cond" v-if="this.$store.state.userData">
-      <Sidebar />
-      <Chat />
-    </div>
-    <div v-else>
-      <Login />
-    </div>
+    <Sidebar />
+    <Chat />
   </div>
 </template>
 
@@ -14,12 +9,12 @@
 // @ is an alias to /src
 import Sidebar from "@/components/Sidebar.vue";
 import Chat from "@/components/Chat.vue";
-import Login from "@/components/Login.vue";
+// import Login from "@/components/Login.vue";
 
 export default {
   name: "Home",
   components: {
-    Login,
+    // Login,
     Sidebar,
     Chat,
   },

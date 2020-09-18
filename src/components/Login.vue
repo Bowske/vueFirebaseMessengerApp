@@ -23,23 +23,26 @@
           <span style="color: #ea4335">e</span>
         </button>
       </div>
-      <!-- <button @click="testData()">TESTESTESTSER</button> -->
+      <button @click="testData()">TESTESTESTSER</button>
     </div>
   </div>
 </template>
 
 <script>
 import { auth, provider } from "../firebase.js";
+import db from "../firebase.js";
 export default {
   name: "Login",
   data() {
-    return {};
+    return {
+      firebaseData: null,
+      tempdata: null,
+    };
   },
   methods: {
-    testData() {
-      console.log(this.$store.state.userData);
-    },
-    signIn() {
+    testData() {},
+
+    authenticate() {
       auth
         .signInWithPopup(provider)
         .then((result) =>
@@ -50,6 +53,21 @@ export default {
           })
         )
         .catch((err) => console.log(err.message));
+    },
+    async getfireBaseData() {
+      db.collection("rooms")
+        .get()
+        .then((snapshot) => {
+          this.firebaseData = snapshot.docs.map((doc) => ({
+            id: doc.id,
+            data: doc.data(),
+          }));
+          this.$router.push(`/rooms/${this.firebaseData[0].id}`);
+        });
+    },
+    async signIn() {
+      this.authenticate();
+      this.getfireBaseData();
     },
   },
 };
