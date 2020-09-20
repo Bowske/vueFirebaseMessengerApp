@@ -3,12 +3,11 @@
     <div class="chat__header">
       <div class="iconInfoWrapper">
         <div class="chat__headerIcon">
-          <img class="roomIcon" v-if="testData()" :src="`${firebaseData.ikona}`" />
+          <img class="roomIcon" v-if="previewData()" :src="`${firebaseData.ikona}`" />
         </div>
         <div class="chat__headerInfo">
-          <span v-if="testData()" class="roomName">{{firebaseData.name}}</span>
+          <span v-if="previewData()" class="roomName">{{firebaseData.name}}</span>
           <p class="lastOnline">Last online</p>
-          <p>{{message}}</p>
         </div>
       </div>
       <div class="chat__headerSideIcons">
@@ -18,11 +17,13 @@
       </div>
     </div>
     <div class="chat__body">
-      <div class="chat__message chat__sender">
-        <p>Witam</p>
-        <p>{{this.$route.params}}</p>
-        <p></p>
-        <button @click="testData()">TEST</button>
+      <div v-for="(message,i) in messages" :key="i">
+        <div v-if="checkIfSender(message)" class="chat__message chat__sender">
+          <span>{{message.message}}</span>
+        </div>
+        <div v-else class="chat__message chat__receiver">
+          <span>{{message.message}}</span>
+        </div>
       </div>
     </div>
     <div class="chat__footer">
@@ -44,23 +45,37 @@
 
 <script>
 import db from "../firebase.js";
+import firebase from "firebase";
 export default {
   name: "Chat",
   data() {
     return {
       input: "",
       roomName: "",
-      message: "",
+      messages: "",
       roomNameTest: "",
       firebaseData: null,
     };
   },
   methods: {
+    checkIfSender(message) {
+      return this.$store.state.userData.name === message.name;
+    },
     testData() {
+      console.log(this.messages);
+    },
+    previewData() {
       return this.firebaseData;
     },
     sendMessage() {
-      console.log(this.input);
+      db.collection("rooms")
+        .doc(this.$route.params.id)
+        .collection("messages")
+        .add({
+          message: this.input,
+          name: this.$store.state.userData.name,
+          time: firebase.firestore.FieldValue.serverTimestamp(),
+        });
       this.input = "";
     },
     getRoomName() {
@@ -68,16 +83,25 @@ export default {
         .doc(this.$route.params.id)
         .onSnapshot((snapshot) => (this.firebaseData = snapshot.data()));
     },
+    getMessages() {
+      db.collection("rooms")
+        .doc(this.$route.params.id)
+        .collection("messages")
+        .orderBy("time", "asc")
+        .onSnapshot(
+          (snapshot) => (this.messages = snapshot.docs.map((doc) => doc.data()))
+        );
+    },
   },
   watch: {
     $route(to, from) {
       this.getRoomName();
+      this.getMessages();
     },
   },
-  beforeMount() {
-    db.collection("rooms")
-      .doc(this.$route.params.id)
-      .onSnapshot((snapshot) => (this.firebaseData = snapshot.data()));
+  created() {
+    this.getRoomName();
+    this.getMessages();
   },
 };
 </script>
@@ -135,7 +159,9 @@ form > .form__input {
 }
 .chat__sender {
   margin-left: auto;
-  background-color: blue;
+}
+.chat__receiver {
+  margin-right: auto;
 }
 .chat__message {
   background-color: #f5f5f5;

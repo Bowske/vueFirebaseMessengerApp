@@ -9,7 +9,6 @@
       <div class="chatsNames">
         <h2>{{name}}</h2>
         <p>Last message</p>
-        <p>{{id}}</p>
       </div>
     </div>
   </div>

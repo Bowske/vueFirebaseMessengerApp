@@ -21,6 +21,7 @@
       <!--  -->
       <SidebarChats :addNewChat="true" />
       <router-link
+        class="router__link"
         v-for="room in firebaseData"
         :key="room.id"
         :to="{ name: 'Pokoje', params: { id: room.id }}"
@@ -61,6 +62,10 @@ export default {
 </script>
 
 <style>
+.router__link {
+  text-decoration: none;
+  color: inherit;
+}
 .avatarPadding {
   display: flex;
   align-items: center;
@@ -111,7 +116,6 @@ export default {
 .sidebar__headerLeft {
   display: flex;
   align-items: center;
-  justify-content: center;
   min-width: 10vw;
 }
 .sidebar__headerRight {
