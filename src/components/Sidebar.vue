@@ -3,7 +3,7 @@
     <div class="sidebar__header">
       <div class="sidebar__headerLeft">
         <div class="avatarPadding">
-          <font-awesome-icon class="fa-2x" icon="user-circle" />
+          <img class="profilePic" :src="this.$store.state.userData.picture" alt="profilePic" srcset />
         </div>
         <h1 class="sidebar__headerName">Czaty</h1>
       </div>
@@ -61,6 +61,15 @@ export default {
 </script>
 
 <style>
+.avatarPadding {
+  display: flex;
+  align-items: center;
+}
+.profilePic {
+  height: 35px;
+  width: 35px;
+  border-radius: 50%;
+}
 .searchIcon {
   padding-left: 10px;
 }
@@ -102,6 +111,7 @@ export default {
 .sidebar__headerLeft {
   display: flex;
   align-items: center;
+  justify-content: center;
   min-width: 10vw;
 }
 .sidebar__headerRight {
