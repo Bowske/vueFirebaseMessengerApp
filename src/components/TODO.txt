@@ -31,3 +31,5 @@ firestore() {
 WRZUCANIE LOGINU DO VUEXA!!!!!!!!!!!!!
 
 login jako router view
+
+asynchronicznie wywolac najpierw autentykacje a potem dopiero pobieranie z bazy danych

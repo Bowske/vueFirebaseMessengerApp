@@ -42,8 +42,8 @@ export default {
   methods: {
     testData() {},
 
-    authenticate() {
-      auth
+    async authenticate() {
+      await auth
         .signInWithPopup(provider)
         .then((result) =>
           this.$store.commit("setUserData", {
@@ -53,21 +53,24 @@ export default {
           })
         )
         .catch((err) => console.log(err.message));
+      return this.$store.state.userData;
     },
-    async getfireBaseData() {
-      db.collection("rooms")
+    async getfireBaseData(x) {
+      await db
+        .collection("rooms")
         .get()
         .then((snapshot) => {
           this.firebaseData = snapshot.docs.map((doc) => ({
             id: doc.id,
             data: doc.data(),
           }));
-          this.$router.push(`/rooms/${this.firebaseData[0].id}`);
         });
+      if (x) {
+        this.$router.push(`/rooms/${this.firebaseData[0].id}`);
+      }
     },
     async signIn() {
-      this.authenticate();
-      this.getfireBaseData();
+      this.getfireBaseData(await this.authenticate());
     },
   },
 };
