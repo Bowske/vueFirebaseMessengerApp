@@ -67,8 +67,9 @@ export default {
     previewData() {
       return this.firebaseData;
     },
-    sendMessage() {
-      db.collection("rooms")
+    async sendMessage() {
+      await db
+        .collection("rooms")
         .doc(this.$route.params.id)
         .collection("messages")
         .add({
@@ -76,6 +77,9 @@ export default {
           name: this.$store.state.userData.name,
           time: firebase.firestore.FieldValue.serverTimestamp(),
         });
+      db.collection("rooms")
+        .doc(this.$route.params.id)
+        .update({ lastMessage: this.input });
       this.input = "";
     },
     getRoomName() {

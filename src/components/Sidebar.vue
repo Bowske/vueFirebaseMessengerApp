@@ -26,7 +26,13 @@
         :key="room.id"
         :to="{ name: 'Pokoje', params: { id: room.id }}"
       >
-        <SidebarChats :key="room.id" :id="room.id" :name="room.data.name" :icon="room.data.ikona" />
+        <SidebarChats
+          :lastMessage="room.data.lastMessage"
+          :key="room.id"
+          :id="room.id"
+          :name="room.data.name"
+          :icon="room.data.ikona"
+        />
       </router-link>
     </div>
   </div>
@@ -105,6 +111,7 @@ export default {
   overflow-x: hidden;
 }
 .sidebar__header {
+  margin-top: 3px;
   display: flex;
   justify-content: space-between;
   padding: 10px 10px;
@@ -114,6 +121,7 @@ export default {
   font-size: 23px;
 }
 .sidebar__headerLeft {
+  margin-left: 10px;
   display: flex;
   align-items: center;
   min-width: 10vw;

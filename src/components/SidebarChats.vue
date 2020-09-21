@@ -8,7 +8,7 @@
       <img class="roomIcon" :src="`${icon}`" />
       <div class="chatsNames">
         <h2>{{name}}</h2>
-        <p>Last message</p>
+        <p>{{lastMessage}}</p>
       </div>
     </div>
   </div>
@@ -28,6 +28,7 @@ export default {
     id: String,
     name: String,
     addNewChat: Boolean,
+    lastMessage: String,
   },
   data() {
     return {
