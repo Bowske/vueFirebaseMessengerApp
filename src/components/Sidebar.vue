@@ -22,7 +22,6 @@
         placeholder="Szukaj w Messengerze"
       />
     </div>
-    <button @click="testData()">TESTESTSE</button>
     <div class="sidebar__chats">
       <!--  -->
       <SidebarChats :addNewChat="true" />
@@ -60,11 +59,6 @@ export default {
       firebaseData: null,
       searchInput: "",
     };
-  },
-  methods: {
-    testData() {
-      console.log(this.firebaseData);
-    },
   },
   created() {
     return {
