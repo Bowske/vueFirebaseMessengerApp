@@ -23,7 +23,6 @@
           <span style="color: #ea4335">e</span>
         </button>
       </div>
-      <button @click="testData()">TESTESTESTSER</button>
     </div>
   </div>
 </template>
@@ -40,8 +39,6 @@ export default {
     };
   },
   methods: {
-    testData() {},
-
     async authenticate() {
       await auth
         .signInWithPopup(provider)

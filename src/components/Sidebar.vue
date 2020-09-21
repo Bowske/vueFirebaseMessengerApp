@@ -22,7 +22,7 @@
         placeholder="Szukaj w Messengerze"
       />
     </div>
-    <div class="sidebar__chats">
+    <div class="sidebar__chats" v-if="firebaseData">
       <!--  -->
       <SidebarChats :addNewChat="true" />
       <router-link
@@ -60,6 +60,7 @@ export default {
       searchInput: "",
     };
   },
+  methods: {},
   created() {
     return {
       firebaseData: db.collection("rooms").onSnapshot((snapshot) => {
