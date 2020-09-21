@@ -15,14 +15,20 @@
     </div>
     <div class="sidebar__search">
       <font-awesome-icon class="searchIcon" icon="search" />
-      <input class="sidebar__searchInput" type="text" placeholder="Szukaj w Messengerze" />
+      <input
+        v-model="searchInput"
+        class="sidebar__searchInput"
+        type="text"
+        placeholder="Szukaj w Messengerze"
+      />
     </div>
+    <button @click="testData()">TESTESTSE</button>
     <div class="sidebar__chats">
       <!--  -->
       <SidebarChats :addNewChat="true" />
       <router-link
         class="router__link"
-        v-for="room in firebaseData"
+        v-for="room in filteredList"
         :key="room.id"
         :to="{ name: 'Pokoje', params: { id: room.id }}"
       >
@@ -52,7 +58,13 @@ export default {
   data() {
     return {
       firebaseData: null,
+      searchInput: "",
     };
+  },
+  methods: {
+    testData() {
+      console.log(this.firebaseData);
+    },
   },
   created() {
     return {
@@ -63,6 +75,15 @@ export default {
         }));
       }),
     };
+  },
+  computed: {
+    filteredList() {
+      return this.firebaseData.filter((room) => {
+        return room.data.name
+          .toLowerCase()
+          .includes(this.searchInput.toLowerCase());
+      });
+    },
   },
 };
 </script>
